@@ -6,7 +6,7 @@ Provide a brief description of your project here. Explain what it does and its p
 
 ## Project Structure
 
-\```
+```
 project-root/
 │
 ├── app/
@@ -24,7 +24,7 @@ project-root/
 ├── readme.md
 │
 └── start_services.sh
-\```
+```
 
 - **app**: Contains the api code.
 
@@ -56,49 +56,49 @@ For convinence all the files that need to be generated or downloaded are already
 
 1. Clone the repository: TODO
 
-    \```bash
+    ```bash
     git clone <repository-url>
     cd <repository-name>
-    \```
+    ```
 
 2. Give permission to scripts:
 
-    \```bash
+    ```bash
     chmod +x start_services.sh
     chmod +x db/init_db.sh
-    \```
+    ```
 
 3. Get all the users and its locations: (It my take a while)
 
-    \```bash
+    ```bash
     docker-compose run --rm script_runner_get_users
-    \```
+    ```
 
 4. Filter out all airports with no wikipedia link:
 
-    \```bash
+    ```bash
     docker-compose run --rm script_runner_filter_airports_with_wk
-    \```
+    ```
 
 5. Find all closest airport to each user:
 
-    \```bash
+    ```bash
     docker-compose run --rm script_runner_find_user_closest_airport
-    \```
+    ```
 
 6. Once everything is generated, start the api:
 
-    \```bash
+    ```bash
     ./start_services.sh
-    \```
+    ```
 
     Once you run this command, if you have a database it will be deleted a new file `init.sql` will be generated to populate the database with required data.
 
 6. Now you can test the accuracy of the project by running:
 
-    \```bash
+    ```bash
     docker-compose run --rm script_runner_eval
-    \```
+    ```
 
 
 ## API Documentation
