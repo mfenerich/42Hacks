@@ -1,0 +1,80 @@
+version: '3.9'
+
+services:
+
+  script_runner:
+    image: python:3.11-slim
+    container_name: python_script_runner
+    volumes:
+      - ./scripts:/scripts
+      - ./assets:/assets
+      - ./db:/db
+    entrypoint: ["python", "scripts/transformCSVToSQL.py"]
+
+  web:
+    build:
+      context: ./app
+      dockerfile: Dockerfile
+    container_name: flask_app
+    restart: always
+    env_file:
+      - .env
+    ports:
+      - "5555:5000"
+
+  db:
+    image: postgres:15
+    container_name: postgres_db
+    restart: always
+    env_file:
+      - .env
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./db/init_db.sh:/docker-entrypoint-initdb.d/init_db.sh
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
+
+  # Additional script runners
+  script_runner_get_users:
+    build:
+      context: .
+      dockerfile: ./scripts/Dockerfile.script_runner
+    container_name: script_runner_get_users
+    volumes:
+      - ./scripts:/scripts
+      - ./assets:/assets
+    entrypoint: ["python", "/scripts/getUsers.py"]
+
+  script_runner_find_user_closest_airport:
+    build:
+      context: .
+      dockerfile: ./scripts/Dockerfile.script_runner
+    container_name: script_runner_find_user_closest_airport
+    volumes:
+      - ./scripts:/scripts
+      - ./assets:/assets
+    entrypoint: ["python", "/scripts/userClosestAirport.py"]
+
+  script_runner_filter_airports_with_wk:
+    build:
+      context: .
+      dockerfile: ./scripts/Dockerfile.script_runner
+    container_name: script_runner_filter_airports_with_wk
+    volumes:
+      - ./scripts:/scripts
+      - ./assets:/assets
+    entrypoint: ["python", "/scripts/filterAirportsWithWk.py"]
+
+  script_runner_eval:
+    build:
+      context: .
+      dockerfile: ./scripts/Dockerfile.script_runner
+    container_name: script_runner_eval
+    volumes:
+      - ./scripts:/scripts
+      - ./assets:/assets
+    entrypoint: ["python", "/scripts/eval.py"]
+
+volumes:
+  postgres_data:

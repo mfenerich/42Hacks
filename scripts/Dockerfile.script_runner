@@ -1,0 +1,14 @@
+# Dockerfile for script runner
+FROM python:3.11-slim
+
+# Set the working directory
+WORKDIR /scripts
+
+# Copy the requirements file into the container
+COPY ./scripts/requirements.txt /scripts/requirements.txt
+
+# Install dependencies
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy the scripts into the container
+COPY scripts /scripts
