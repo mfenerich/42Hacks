@@ -20,7 +20,7 @@ services:
     env_file:
       - .env
     ports:
-      - "80:5000"
+      - "5000:5000"
 
   db:
     image: postgres:15
