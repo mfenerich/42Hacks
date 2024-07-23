@@ -57,8 +57,8 @@ For convinence all the files that need to be generated or downloaded are already
 1. Clone the repository: TODO
 
     ```bash
-    git clone <repository-url>
-    cd <repository-name>
+    git clone https://github.com/mfenerich/42Hacks.git
+    cd 42Hacks
     ```
 
 2. Give permission to scripts:
