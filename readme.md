@@ -1,9 +1,5 @@
 # Project Name
 
-## Overview
-
-Provide a brief description of your project here. Explain what it does and its primary features.
-
 ## Project Structure
 
 ```
